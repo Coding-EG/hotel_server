@@ -107,8 +107,11 @@ export const MUserDashboard = (req, res) => {
 };
 
 export const MHotels = (req, res) => {
-  const query = `SELECT * FROM hotels;`;
-  connection.query(query, (error, results) => {
+  let start = parseInt(req.query.start) || 0;
+  let limit = parseInt(req.query.limit) || 5;
+  let offset = limit*start;
+  const query = `SELECT * FROM hotels LIMIT ? OFFSET ?;`;
+  connection.query(query, [limit,offset],(error, results) => {
     if (error) {
       // console.error("Error retrieving hotels data:", error);
       return res.status(500).json({ error: "Internal Server Error" });
