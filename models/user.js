@@ -8,11 +8,11 @@ import { validationResult } from "express-validator";
 const private_key = process.env.PRIVATE_KEY;
 
 export const MLogin = (req, res) => {
-  res.sendFile(__dirname+ "/public/login.html");
+  res.sendFile(__dirname + "/public/login.html");
 };
 
 export const MRegister = (req, res) => {
-  res.sendFile(__dirname+ "/public/register.html");
+  res.sendFile(__dirname + "/public/register.html");
 };
 
 export const MRegisterUser = (req, res) => {
@@ -108,7 +108,7 @@ export const MUserDashboard = (req, res) => {
 
 export const MHotels = (req, res) => {
   const query = `SELECT * FROM hotels;`;
-  connection.query(query,(error, results) => {
+  connection.query(query, (error, results) => {
     if (error) {
       // console.error("Error retrieving hotels data:", error);
       return res.status(500).json({ error: "Internal Server Error" });
@@ -118,9 +118,8 @@ export const MHotels = (req, res) => {
       return res.status(404).json({ error: "Hotels not found" });
     }
 
-    
     res.status(200).json({
-      hotels:results 
+      hotels: results,
     });
   });
 };
@@ -128,7 +127,7 @@ export const MHotels = (req, res) => {
 export const MHotelMenu = (req, res) => {
   const hotelID = req.params.id;
   const query = `SELECT * FROM menu_items WHERE hotel_id = ?;`;
-  connection.query(query,hotelID,(error, results) => {
+  connection.query(query, hotelID, (error, results) => {
     if (error) {
       // console.error("Error retrieving hotel menu_item:", error);
       return res.status(500).json({ error: "Internal Server Error" });
@@ -138,9 +137,8 @@ export const MHotelMenu = (req, res) => {
       return res.status(404).json({ error: "Hotel Menu item not found" });
     }
 
-    
     res.status(200).json({
-      menu_items:results
+      menu_items: results,
     });
   });
 };
